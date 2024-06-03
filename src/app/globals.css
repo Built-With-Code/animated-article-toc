@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1,
+h2 {
+  @apply leading-tight tracking-tight;
+}
+
+h1 {
+  @apply font-semibold text-4xl;
+}
+
+h2 {
+  @apply font-semibold text-xl mb-2;
+}
+
+p {
+  @apply leading-normal py-2 text-neutral-900;
+}
+
+section {
+  @apply my-8;
+}
