@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export type Section = {
   id: number;
@@ -27,9 +27,18 @@ export const useTOCContextValues = () => {
     setSections((val) => val.concat([section]));
   };
 
+  const processSections = (sections: Section[]) => {
+    // Filter for duplicates and sort by id
+    const ids = sections.map(({ id }) => id);
+    const uniqueSections = sections
+      .filter(({ id }, index) => !ids.includes(id, index + 1))
+      .sort((a, b) => a.id - b.id);
+    return uniqueSections;
+  };
+
   return {
     values: {
-      sections,
+      sections: processSections(sections),
       registerSection,
       activeSection,
       setActiveSection,

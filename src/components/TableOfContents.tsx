@@ -1,4 +1,4 @@
-import { Section, TOCContext } from "@/utils/TOCContext";
+import { TOCContext } from "@/utils/TOCContext";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useContext, useState } from "react";
 
@@ -6,15 +6,6 @@ const HIDDEN_OFFSET = 0.05;
 
 const TableOfContents = () => {
   const { sections, activeSection } = useContext(TOCContext);
-
-  const processSections = (sections: Section[]) => {
-    // Filter for duplicates and sort by id
-    const ids = sections.map(({ id }) => id);
-    const uniqueSections = sections
-      .filter(({ id }, index) => !ids.includes(id, index + 1))
-      .sort((a, b) => a.id - b.id);
-    return uniqueSections;
-  };
 
   // Scroll tracking
   const { scrollYProgress } = useScroll();
@@ -31,9 +22,15 @@ const TableOfContents = () => {
   return (
     <div className="h-full px-4">
       <motion.div
-        className="sticky top-20 h-[80vh] py-32 flex gap-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showTOC ? 1 : 0 }}
+        className={`sticky top-20 h-[80vh] py-32 flex gap-4`}
+        initial={{
+          opacity: 0,
+          display: "none",
+        }}
+        animate={{
+          opacity: showTOC ? 1 : 0,
+          display: showTOC ? "flex" : "none",
+        }}
       >
         <div className="h-full w-0.5 bg-neutral-300 rounded-full overflow-hidden">
           <motion.div
@@ -41,10 +38,10 @@ const TableOfContents = () => {
             style={{ height: progressHeight }}
           />
         </div>
-        <div className="hidden lg:flex flex-col justify-between text-sm xl:text-base">
-          {processSections(sections).map(({ id, title }) => (
+        <div className="hidden lg:flex flex-col gap-6 text-sm xl:text-base">
+          {sections.map(({ id, title }) => (
             <span
-              className={`transition-colors duration-200 ${
+              className={`cursor-pointer transition-colors duration-200 ${
                 activeSection === id ? "text-neutral-800" : "text-neutral-300"
               }`}
               key={id}
