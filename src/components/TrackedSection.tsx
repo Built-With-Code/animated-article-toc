@@ -38,7 +38,14 @@ const TrackedSection = ({
     }
   });
 
-  return <section ref={container} {...props} />;
+  return (
+    <section
+      ref={container}
+      id={`section-${sectionId}`}
+      style={{ scrollMargin: "20vh" }}
+      {...props}
+    />
+  );
 };
 
 export default TrackedSection;

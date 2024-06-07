@@ -48,6 +48,11 @@ const TableOfContents = () => {
                 activeSection === id ? "text-neutral-800" : "text-neutral-300"
               }`}
               key={id}
+              onClick={() =>
+                document
+                  .getElementById(`section-${id}`)
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               {title}
             </span>
