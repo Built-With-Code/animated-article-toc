@@ -42,7 +42,7 @@ const TrackedSection = ({
     <section
       ref={container}
       id={`section-${sectionId}`}
-      style={{ scrollMargin: "20vh" }}
+      style={{ scrollMargin: "40vh" }}
       {...props}
     />
   );
